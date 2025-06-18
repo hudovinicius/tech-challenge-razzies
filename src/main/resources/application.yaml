@@ -1,20 +1,23 @@
 spring:
   application:
     name: movies
-
-    datasource:
-      url: jdbc:h2:mem:movies;DB_CLOSE_DELAY=-1
-      driver-class-name: org.h2.Driver
-      username: sa
-      password:
-    jpa:
+  datasource:
+    url: jdbc:h2:mem:movies;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
       hibernate:
-        ddl-auto: update
-      show-sql: true
-      properties:
-        hibernate:
-          format_sql: true
-    h2:
-      console:
-        enabled: true
-        path: /h2-console
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  flyway:
+    enabled: true
+    locations: classpath:db/migrations
