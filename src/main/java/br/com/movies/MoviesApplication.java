@@ -1,4 +1,4 @@
-package br.com.movies.movies;
+package br.com.movies;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

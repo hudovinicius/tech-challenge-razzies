@@ -1,16 +1,15 @@
-package br.com.movies.movies.models;
+package br.com.movies.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Builder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Builder
 public class Movie {
 
     @Id

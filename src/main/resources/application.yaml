@@ -10,7 +10,7 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: validate
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
@@ -21,3 +21,11 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migrations
+
+app:
+  import-on-startup: true
+  file-path: classpath:csv/Movielist.csv
+  column-delimiter: ";"
+  element-delimiter: ","
+  regex-element-delimiter: "\\s+and\\s+|,\\s*and\\s+"
+  skip-header: true
