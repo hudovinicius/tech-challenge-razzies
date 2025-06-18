@@ -17,4 +17,5 @@ public class AppProperties {
     private String elementDelimiter;
     private String regexElementDelimiter;
     private Boolean skipHeader;
+    private String winnerValue;
 }

@@ -29,3 +29,4 @@ app:
   element-delimiter: ","
   regex-element-delimiter: "\\s+and\\s+|,\\s*and\\s+"
   skip-header: true
+  winner-value: "yes"

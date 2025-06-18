@@ -14,6 +14,8 @@ import org.springframework.core.io.ResourceLoader;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -34,7 +36,7 @@ public class LoadDataRunner implements CommandLineRunner {
             log.warn("LoadDataRunner.run - Import is disabled, skipping data load.");
             return;
         }
-
+        LocalDateTime startTime = LocalDateTime.now();
         var resource = resourceLoader.getResource(appProperties.getFilePath());
 
         try (var reader = new BufferedReader(new InputStreamReader(resource.getInputStream()))) {
@@ -48,6 +50,9 @@ public class LoadDataRunner implements CommandLineRunner {
 
             lines.forEach(this::processLine);
         }
+
+        log.info("LoadDataRunner.run - ending data load. Took: {} ms",
+                ChronoUnit.MILLIS.between(startTime, LocalDateTime.now()));
     }
 
     private void processLine(String line) {
@@ -66,8 +71,7 @@ public class LoadDataRunner implements CommandLineRunner {
         }
 
         try {
-
-            var winner = parts.length > 4 && Boolean.parseBoolean(parts[4].trim());
+            var winner = parts.length > 4 && StringUtils.equalsIgnoreCase(parts[4], appProperties.getWinnerValue());
 
             var movie = new MovieRegisterDTO(
                     Integer.parseInt(parts[0].trim()),
