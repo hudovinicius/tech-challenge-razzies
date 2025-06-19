@@ -1,13 +1,15 @@
-package br.com.movies;
+package br.com.razzie;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
-public class MoviesApplication {
+@EnableCaching
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MoviesApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }

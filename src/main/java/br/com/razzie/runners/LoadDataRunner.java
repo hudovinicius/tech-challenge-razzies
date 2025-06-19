@@ -1,10 +1,10 @@
-package br.com.movies.runners;
+package br.com.razzie.runners;
 
-import br.com.movies.configs.AppProperties;
-import br.com.movies.dtos.MovieRegisterDTO;
-import br.com.movies.dtos.ProducerRegisterDTO;
-import br.com.movies.dtos.StudioRegisterDTO;
-import br.com.movies.services.MovieService;
+import br.com.razzie.configs.AppProperties;
+import br.com.razzie.dtos.MovieRegisterDTO;
+import br.com.razzie.dtos.ProducerRegisterDTO;
+import br.com.razzie.dtos.StudioRegisterDTO;
+import br.com.razzie.services.MovieService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -32,10 +32,12 @@ public class LoadDataRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         log.info("LoadDataRunner.run - starting data load...");
 
+
         if (!appProperties.getImportOnStartup()) {
             log.warn("LoadDataRunner.run - Import is disabled, skipping data load.");
             return;
         }
+
         LocalDateTime startTime = LocalDateTime.now();
         var resource = resourceLoader.getResource(appProperties.getFilePath());
 
@@ -51,8 +53,8 @@ public class LoadDataRunner implements CommandLineRunner {
             lines.forEach(this::processLine);
         }
 
-        log.info("LoadDataRunner.run - ending data load. Took: {} ms",
-                ChronoUnit.MILLIS.between(startTime, LocalDateTime.now()));
+        var took = ChronoUnit.MILLIS.between(startTime, LocalDateTime.now());
+        log.info("LoadDataRunner.run - ending data load. Took: {} ms", took);
     }
 
     private void processLine(String line) {
@@ -90,7 +92,7 @@ public class LoadDataRunner implements CommandLineRunner {
 
     private Set<ProducerRegisterDTO> parseMultipleProducers(String producers) {
 
-        var normalizedProducers = normalizeDelimiters(producers);
+        var normalizedProducers = normalizeElementDelimiters(producers);
 
         return Arrays.stream(StringUtils.split(normalizedProducers, appProperties.getElementDelimiter()))
                 .map(String::trim)
@@ -101,7 +103,7 @@ public class LoadDataRunner implements CommandLineRunner {
 
     private Set<StudioRegisterDTO> parseMultipleStudios(String studios) {
 
-        var normalizedStudios = normalizeDelimiters(studios);
+        var normalizedStudios = normalizeElementDelimiters(studios);
 
         return Arrays.stream(
                         StringUtils.split(normalizedStudios, appProperties.getElementDelimiter()))
@@ -111,7 +113,7 @@ public class LoadDataRunner implements CommandLineRunner {
                 .collect(java.util.stream.Collectors.toSet());
     }
 
-    private String normalizeDelimiters(String value) {
+    private String normalizeElementDelimiters(String value) {
          return value.replaceAll(appProperties.getRegexElementDelimiter(), appProperties.getElementDelimiter());
     }
 }

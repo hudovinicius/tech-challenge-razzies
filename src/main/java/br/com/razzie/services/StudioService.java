@@ -1,7 +1,7 @@
-package br.com.movies.services;
+package br.com.razzie.services;
 
-import br.com.movies.dtos.StudioRegisterDTO;
-import br.com.movies.models.Studio;
+import br.com.razzie.dtos.StudioRegisterDTO;
+import br.com.razzie.models.Studio;
 
 import java.util.Set;
 

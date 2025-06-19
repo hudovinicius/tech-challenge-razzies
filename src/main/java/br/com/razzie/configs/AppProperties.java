@@ -1,4 +1,4 @@
-package br.com.movies.configs;
+package br.com.razzie.configs;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
-package br.com.movies.services;
+package br.com.razzie.services;
 
-import br.com.movies.dtos.MovieRegisterDTO;
+import br.com.razzie.dtos.MovieRegisterDTO;
 
 public interface MovieService {
 

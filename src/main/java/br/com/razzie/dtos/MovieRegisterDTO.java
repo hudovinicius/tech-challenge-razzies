@@ -1,4 +1,4 @@
-package br.com.movies.dtos;
+package br.com.razzie.dtos;
 
 import java.util.Set;
 

@@ -1,8 +1,8 @@
-package br.com.movies.services;
+package br.com.razzie.services;
 
-import br.com.movies.dtos.MovieRegisterDTO;
-import br.com.movies.models.Movie;
-import br.com.movies.repositories.MovieRepository;
+import br.com.razzie.dtos.MovieRegisterDTO;
+import br.com.razzie.models.Movie;
+import br.com.razzie.repositories.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

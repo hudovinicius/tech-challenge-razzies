@@ -1,6 +1,6 @@
-package br.com.movies.repositories;
+package br.com.razzie.repositories;
 
-import br.com.movies.models.Movie;
+import br.com.razzie.models.Movie;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

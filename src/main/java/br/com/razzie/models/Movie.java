@@ -1,7 +1,10 @@
-package br.com.movies.models;
+package br.com.razzie.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -10,6 +13,9 @@ import java.util.Set;
 
 @Entity
 @Builder
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Movie {
 
     @Id
