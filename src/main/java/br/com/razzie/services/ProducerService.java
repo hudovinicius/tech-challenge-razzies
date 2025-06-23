@@ -12,5 +12,5 @@ public interface ProducerService {
 
     Producer findOrCreateProducer(ProducerRegisterDTO producer);
 
-    WinRangeResponseDTO findWinnersRangers();
+    WinRangeResponseDTO findConsecutiveWinners();
 }

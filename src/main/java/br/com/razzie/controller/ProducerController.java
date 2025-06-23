@@ -27,14 +27,14 @@ public class ProducerController {
 
     @GetMapping(path = "/intervals", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Find producers with the longest and shortest interval between awards")
-    public ResponseEntity<WinRangeResponseDTO> findWinnersRanges() {
-        log.debug("ProducerController.findWinnersRanges - start - Fetching winners ranges");
+    public ResponseEntity<WinRangeResponseDTO> findConsecutiveWinners() {
+        log.debug("ProducerController.findConsecutiveWinners - start - Fetching winners ranges");
         LocalDateTime startTime = LocalDateTime.now();
 
-        var response = producerService.findWinnersRangers();
+        var response = producerService.findConsecutiveWinners();
 
         var took = ChronoUnit.MILLIS.between(startTime, LocalDateTime.now());
-        log.debug("ProducerController.findWinnersRanges - end - Fetching winners ranges took: {} ms", took);
+        log.debug("ProducerController.findConsecutiveWinners - end - Fetching winners ranges took: {} ms", took);
 
         return ResponseEntity.ok(response);
     }

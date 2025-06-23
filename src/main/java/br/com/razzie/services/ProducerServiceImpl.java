@@ -50,19 +50,19 @@ public class ProducerServiceImpl implements ProducerService {
 
     @Override
     @Cacheable("winners-rangers")
-    public WinRangeResponseDTO findWinnersRangers() {
+    public WinRangeResponseDTO findConsecutiveWinners() {
 
-        log.debug("ProducerServiceImpl.findWinnersRangers - start - Finding winners ranges");
+        log.debug("ProducerServiceImpl.findConsecutiveWinners - start - Finding winners ranges");
 
         try {
             var producers = producerRepository.findProducersWithMultipleWins();
 
             if (producers == null || producers.isEmpty()) {
-                log.warn("ProducerServiceImpl.findWinnersRangers - No producers with multiple wins found.");
+                log.warn("ProducerServiceImpl.findConsecutiveWinners - No producers with multiple wins found.");
                 return new WinRangeResponseDTO(List.of(), List.of());
             }
 
-            log.debug("ProducerServiceImpl.findWinnersRangers - Found {} producers with multiple wins.", producers.size());
+            log.debug("ProducerServiceImpl.findConsecutiveWinners - Found {} producers with multiple wins.", producers.size());
 
             List<WinInfoResponseDTO> winInfoList = producers.parallelStream()
                 .map(producer -> {
@@ -76,7 +76,7 @@ public class ProducerServiceImpl implements ProducerService {
                 .flatMap(List::stream)
                 .toList();
 
-            log.debug("ProducerServiceImpl.findWinnersRangers - Calculated win intervals for {} producers", winInfoList.size());
+            log.debug("ProducerServiceImpl.findConsecutiveWinners - Calculated win intervals for {} producers", winInfoList.size());
 
             Map<Integer, List<WinInfoResponseDTO>> grouped = winInfoList.stream()
                     .collect(Collectors.groupingBy(WinInfoResponseDTO::interval));
@@ -84,7 +84,7 @@ public class ProducerServiceImpl implements ProducerService {
             int min = Collections.min(grouped.keySet());
             int max = Collections.max(grouped.keySet());
 
-            log.debug("ProducerServiceImpl.findWinnersRangers - Min interval: {}, Max interval: {}", min, max);
+            log.debug("ProducerServiceImpl.findConsecutiveWinners - Min interval: {}, Max interval: {}", min, max);
 
             return new WinRangeResponseDTO(
                     grouped.getOrDefault(min, List.of()),
@@ -92,7 +92,7 @@ public class ProducerServiceImpl implements ProducerService {
             );
 
         } catch (Exception ex) {
-            log.error("ProducerServiceImpl.findWinnersRangers - Error finding winners ranges, message: {}", ex.getMessage(),  ex);
+            log.error("ProducerServiceImpl.findConsecutiveWinners - Error finding winners ranges, message: {}", ex.getMessage(),  ex);
             throw new ProducerException(ex, ErrorCode.FIND_WINNERS_RANGES_ERROR);
         }
     }
