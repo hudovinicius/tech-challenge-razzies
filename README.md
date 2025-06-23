@@ -99,7 +99,21 @@ GET /v1/producers/intervals
 - O projeto segue a arquitetura em camadas (MVC).
 - O banco de dados é resetado e recriado a cada execução.
 - O CSV de entrada está localizado em: src/main/resources/csv/Movielist.csv.
+  - Caso o nome do arquivo seja atualizado, é necessário atualizar o nome da propriedade `app.file-path` no arquivo `application.properties`.
 - A cache é aplicada no cálculo de intervalos para melhorar performance.
+
+## Configurações
+No arquivo `application.yaml`, foram criadas as seguintes propriedades, para facilitar a configuração a aplicação:
+
+```properties
+  import-on-startup       = Importa os dados do CSV ao iniciar a aplicação
+  file-path               = Caminho do arquivo CSV a ser lido
+  column-delimiter        = Delimitador de colunas no CSV
+  element-delimiter       = Delimitador de elementos em uma coluna (ex: produtores)
+  regex-element-delimiter =  Regex para dividir os elementos de uma coluna
+  skip-header             = Ignora o cabeçalho do CSV
+  winner-value            = Valor que indica que o filme é um vencedor
+```
 
 ## Autor
 Hudo Salvador
