@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: Razzie
+  datasource:
+    url: jdbc:h2:mem:movies;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  flyway:
+    enabled: true
+    locations: classpath:db/migrations
+
+logging:
+  level:
+    br.com.movies: INFO
+
+springdoc:
+  api-docs:
+    path: /v1/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+app:
+  import-on-startup: true
+  file-path: classpath:csv/Movielist.csv
+  column-delimiter: ";"
+  element-delimiter: ","
+  regex-element-delimiter: "\\s+and\\s+|,\\s*and\\s+"
+  skip-header: true
+  winner-value: "yes"
