@@ -24,7 +24,7 @@ spring:
 
 logging:
   level:
-    br.com.movies: INFO
+    br.com.razzie: INFO
 
 springdoc:
   api-docs:
