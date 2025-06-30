@@ -48,7 +48,7 @@ public class ProducerControllerIntegrationTest {
 
     @Test
     @Order(1)
-    public void testFindConsecutiveWinners_ShouldProcessDefaultFileOnStartup() {
+    public void integrationTest_ShouldProcessDefaultFileOnStartup() {
 
         var response = restTemplate.getForEntity(endpoint(), WinRangeResponseDTO.class);
 
@@ -132,5 +132,23 @@ public class ProducerControllerIntegrationTest {
 
         Assertions.assertEquals(1, response.getBody().min().size());
         Assertions.assertEquals(2, response.getBody().max().size());
+    }
+
+    @Test
+    @Order(6)
+    public void testFindConsecutiveWinners_Case4_ShouldReturnMultipleMinAndMaxProducersWithTheSameProducer() throws Exception {
+
+        clearDatabaseAndCache();
+
+        processFileService.processFile("classpath:csv/Case4.csv");
+
+        var response = restTemplate.getForEntity(endpoint(), WinRangeResponseDTO.class);
+
+        Assertions.assertEquals(2, response.getBody().min().size());
+        Assertions.assertEquals(2, response.getBody().max().size());
+        Assertions.assertEquals("Matthew Vaughn", response.getBody().min().getFirst().producer());
+        Assertions.assertEquals("Matthew Vaughn", response.getBody().min().getLast().producer());
+        Assertions.assertEquals("Matthew Vaughn", response.getBody().max().getFirst().producer());
+        Assertions.assertEquals("Matthew Vaughn", response.getBody().max().getLast().producer());
     }
 }
